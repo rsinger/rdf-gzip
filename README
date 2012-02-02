@@ -1,0 +1,25 @@
+rdf-gzip: gzip support for rdf.rb readers and writers
+
+Usage:
+
+	require 'rdf'
+	require 'rdf/ntriples'
+	require 'rdf/json' # or whatever serialization
+	require 'rdf/gzip'
+	
+	graph = RDF::Graph.new
+	
+	RDF::Reader.for(:ntriples).gzopen("/path/to/rdf.nt.gz") do | reader |
+		reader.each_statement do | statement |
+			graph << statement
+		end
+	end
+	
+	RDF::JSONWriter.gzopen("/path/to/rdf.json.gz") do | writer |
+	  graph.each_statement do | statement |
+			writer << statement
+		end
+	end
+	
+That is to say, exactly like how you would normally user RDF::Reader and RDF::Writer, but use gzopen rather than open.  The format needs to be called explicitly (that is, no file format detection) due to the fact that the file suffix may not exist in the file name anywhere.
+			
