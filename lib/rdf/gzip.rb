@@ -1,3 +1,4 @@
+require 'rdf/gzip/version'
 require 'zlib'
 require File.dirname(__FILE__) + '/util/file'
 require 'rdf/reader'
